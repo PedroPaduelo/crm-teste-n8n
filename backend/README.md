@@ -1,90 +1,104 @@
-# CRM Backend
+# Backend do CRM com Integração N8N
 
-Backend do sistema CRM com integração n8n, construído com Node.js e TypeScript.
+Este projeto contém o backend para o sistema CRM, desenvolvido com Node.js, Express e TypeScript.
 
-## Tecnologias
+## 🚀 Configuração
 
-- Node.js
-- TypeScript
-- Express
-- PostgreSQL (planejado)
-- JWT (planejado)
-- Integração com N8N (planejado)
+### Pré-requisitos
+- Node.js (v18+)
+- npm ou yarn
 
-## Estrutura do Projeto
+### Instalação
+
+1. Clone o repositório
+2. Navegue até a pasta backend
+3. Instale as dependências:
+
+```bash
+cd backend
+npm install
+```
+
+4. Crie um arquivo `.env` baseado no `.env.example`:
+
+```bash
+cp .env.example .env
+```
+
+## 📋 Scripts Disponíveis
+
+```bash
+# Iniciar servidor em modo desenvolvimento
+npm run dev
+
+# Iniciar servidor usando o arquivo server.ts (para teste)
+npm run dev:server
+
+# Compilar projeto TypeScript
+npm run build
+
+# Compilar apenas o server.ts para teste
+npm run build:server
+
+# Iniciar servidor em produção
+npm start
+
+# Iniciar servidor usando o server.ts em produção
+npm run start:server
+
+# Executar linting
+npm run lint
+
+# Executar testes
+npm test
+```
+
+## 🔧 Teste de Compilação
+
+Para testar se a configuração TypeScript está funcionando corretamente:
+
+1. **Teste de compilação do server.ts**:
+```bash
+npm run dev:server
+```
+Este comando irá compilar e executar o arquivo `src/server.ts`, mostrando se a configuração TypeScript está correta.
+
+2. **Compilação para produção**:
+```bash
+npm run build:server
+```
+Este comando irá gerar o arquivo compilado `dist/server.js`.
+
+## 📁 Estrutura do Projeto
 
 ```
 backend/
 ├── src/
 │   ├── controllers/     # Controladores das rotas
-│   ├── middleware/      # Middlewares (autenticação, validação)
+│   ├── middleware/      # Middleware do Express
 │   ├── routes/          # Definição das rotas
 │   ├── services/        # Lógica de negócio
-│   ├── types/           # Tipos TypeScript
+│   ├── types/           # Definições de tipos TypeScript
 │   ├── utils/           # Utilitários
-│   └── index.ts         # Ponto de entrada
-├── dist/                # Arquivos compilados
+│   ├── index.ts         # Arquivo principal do servidor
+│   └── server.ts        # Arquivo para teste de compilação
+├── dist/                # Arquivos compilados (gerado automaticamente)
 ├── package.json
 ├── tsconfig.json
-└── README.md
+└── .env.example
 ```
 
-## Instalação
+## 🌐 Endpoints Disponíveis
 
-1. Clone o repositório
-2. Navegue até a pasta backend:
-   ```bash
-   cd backend
-   ```
-3. Instale as dependências:
-   ```bash
-   npm install
-   ```
+- `GET /` - Mensagem de boas-vindas
+- `GET /health` - Status do servidor
+- `GET /api/status` - Status detalhado do sistema
+- `GET /api/test-typescript` - Teste de compilação TypeScript
 
-## Configuração
+## 🛠️ Tecnologias Utilizadas
 
-1. Copie o arquivo de variáveis de ambiente:
-   ```bash
-   cp .env.example .env
-   ```
-
-2. Configure as variáveis de ambiente no arquivo `.env`:
-   - `PORT`: Porta do servidor (padrão: 3001)
-   - `DATABASE_URL`: URL de conexão com o banco PostgreSQL
-   - `JWT_SECRET`: Chave secreta para JWT
-   - `N8N_WEBHOOK_URL`: URL do webhook do N8N
-
-## Scripts Disponíveis
-
-- `npm run dev`: Inicia o servidor em modo desenvolvimento
-- `npm run build`: Compila o código TypeScript
-- `npm run start`: Inicia o servidor em modo produção
-- `npm run lint`: Executa o ESLint
-- `npm run test`: Executa os testes
-
-## Desenvolvimento
-
-Para iniciar o servidor em modo desenvolvimento:
-
-```bash
-npm run dev
-```
-
-O servidor estará disponível em `http://localhost:3001`
-
-## Endpoints
-
-### Health Check
-- `GET /` - Verifica se o servidor está online
-- `GET /health` - Health check detalhado
-
-### API (planejado)
-- `POST /api/auth/login` - Login de usuário
-- `GET /api/customers` - Lista clientes
-- `POST /api/customers` - Cria cliente
-- `PUT /api/customers/:id` - Atualiza cliente
-- `DELETE /api/customers/:id` - Remove cliente
-
-## Integração com N8N
-
-O backend será configurado para se integrar com workflows do N8N através de webhooks, permitindo automação de processos de negócio.
+- Node.js
+- Express.js
+- TypeScript
+- ESLint
+- ts-node
