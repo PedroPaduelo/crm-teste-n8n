@@ -14,10 +14,11 @@ Sistema CRM (Customer Relationship Management) desenvolvido com integração N8N
 
 ```
 crm-teste-n8n/
-├── backend/                  # API RESTful com Node.js + Express + TypeScript
-├── frontend/                 # Aplicação web React + TypeScript
-├── docs/                     # Documentação
-└── README.md                 # Este arquivo
+├── backend/                      # API RESTful com Node.js + Express + TypeScript
+├── frontend/                     # Aplicação web React + TypeScript
+├── docs/                         # Documentação
+├── README.md                     # Este arquivo
+└── docker-compose.yml            # Docker Compose para orquestração
 ```
 
 ## 🚀 Quick Start
@@ -25,7 +26,7 @@ crm-teste-n8n/
 ### Pré-requisitos
 
 - Node.js 18+
-- PostgreSQL 13+
+- PostGreSQL 13+
 - Conta WhatsApp Business (para integração)
 - N8N (opcional, para automação)
 
@@ -86,12 +87,12 @@ Configure as seguintes variáveis no arquivo `backend/.env`:
 DATABASE_URL=postgresql://usuario:senha@localhost:5432/crm_db
 
 # JWT
-JWT_SECRET=seu-segredo-jwt-muito-seguro-mudar-em-producao
+JWT_SECRET=seu-segredo-jwt-muito-seguro-muda-em-produção
 
 # WhatsApp Business API
-WHATSAPP_API_TOKEN=seu-token-api-whatsapp
-WHATSAPP_PHONE_NUMBER_ID=seu-id-numero-whatsapp
-VERIFY_TOKEN=seu-token-verificacao-webhook
+WHATSAPP_API_TOKEN=seu-token-api-whatsappapp
+WHATSAPP_PHONE_NUMBER_ID=seu-id-numero-whatsappapp
+VERIFY_TOKEN=seu-token-verificacao-webhook-unico
 
 # Frontend URL
 FRONTEND_URL=http://localhost:3000
@@ -130,20 +131,20 @@ CREATE USER crm_user WITH PASSWORD 'senha_segura';
 GRANT ALL PRIVILEGES ON DATABASE crm_db TO crm_user;
 ```
 
-## 🛠️ Desenvolvimento
+## 🔧 Desenvolvimento
 
 ### Scripts Úteis
 
 ```bash
 # Backend
-npm run dev          # Servidor desenvolvimento
-npm run build        # Compilar TypeScript
-npm start            # Servidor produção
+npm run dev        # Servidor desenvolvimento
+npm run build      # Compilar TypeScript
+npm start          # Servidor produção
 
 # Frontend
-npm run dev          # Servidor desenvolvimento
-npm run build        # Build para produção
-npm run preview      # Preview do build
+npm run dev        # Servidor desenvolvimento
+npm run build      # Build para produção
+npm run preview    # Preview do build
 ```
 
 ### ngrok para Webhooks
@@ -183,23 +184,22 @@ npm run build
 # Configurar servidor web para servir arquivos estáticos
 ```
 
-### 🌍 Opções de Hospedagem
+## 🌐 Opções de Hospedagem
 
-#### Backend
+### Backend
 - **VPS**: DigitalOcean, Linode, AWS EC2
 - **PaaS**: Heroku, Render, Railway
 - **Container**: Docker + Kubernetes
 
-#### Frontend
+### Frontend
 - **Static Hosting**: Vercel, Netlify, GitHub Pages
 - **CDN**: AWS S3 + CloudFront
 - **VPS**: Nginx + Apache
 
-## 🔧 Configuração de Produção
+## 🔒 Configuração de Produção
 
 ### Variáveis de Ambiente Produção
-
-⚠️ **IMPORTANTE**: Nunca commitar o arquivo `.env` no versionamento!
+⚠️ **IMPORTANTE**: Nunca comite o arquivo `.env` no versionamento!
 
 - Use serviços de gerenciamento de segredos (AWS Secrets Manager, HashiCorp Vault)
 - Ou configure variáveis no servidor
@@ -229,7 +229,7 @@ tail -f /var/log/crm/app.log
 docker logs -f crm_backend
 ```
 
-## 🔄 Integração N8N
+## 🤖 Integração N8N
 
 O sistema integra com N8N para automação:
 
@@ -241,13 +241,13 @@ O sistema integra com N8N para automação:
    - Envio de mensagens WhatsApp
    - Disparos de emails
 
-## 🏆 Funcionalidades
+## 🚀 Funcionalidades
 
 ### CRM Core
-- 🏢 Gestão de clientes
+- 👥 Gestão de clientes
 - 📈 Controle de leads
 - 📅 Histórico de interações
-- 💼 Pipeline de vendas
+- 📊 Pipeline de vendas
 
 ### Comunicação
 - 📱 WhatsApp Business API
@@ -255,11 +255,11 @@ O sistema integra com N8N para automação:
 - 🔔 Notificações automáticas
 
 ### Automação
-- 🔄 Integração N8N
-- 🪝 Webhooks personalizados
-- 📊 Fluxos de trabalho
+- 🤖 Integração N8N
+- 🔁 Webhooks personalizados
+- ⚡ Fluxos de trabalho
 
-## 📝 Documentação
+## 📚 Documentação
 
 - [Backend Documentation](./backend/README.md)
 - [Frontend Documentation](./frontend/README.md)
@@ -274,11 +274,11 @@ O sistema integra com N8N para automação:
 4. Push para branch (`git push origin feature/nova-funcionalidade`)
 5. Abra Pull Request
 
-## 📄 Licença
+## 📜 Licença
 
 Este projeto está sob licença MIT. Veja [LICENSE](LICENSE) para mais detalhes.
 
-## 🆘 Suporte
+## 🤝 Suporte
 
 Para suporte:
 
@@ -286,7 +286,7 @@ Para suporte:
 - Email: support@seu-dominio.com
 - Documentação: [Wiki do Projeto](https://github.com/PedroPaduelo/crm-teste-n8n/wiki)
 
-## 📊 Status do Projeto
+## 📈 Status do Projeto
 
 - [x] Backend API básica
 - [x] Configuração WhatsApp
@@ -298,7 +298,7 @@ Para suporte:
 
 ---
 
-**Desenvolvido com ❤️ usando Node.js, React e N8N**
+**Desenvolvido com Node.js, React e N8N**
 
 ### 🚀 Deploy Rápido
 
@@ -320,3 +320,254 @@ docker-compose up -d
 
 # Ou deploy manual seguindo o guia docs/DEPLOY.md
 ```
+
+## 📋 Requisitos de Produção
+
+### 🔧 Configurações Essenciais
+
+1. **Banco de Dados PostgreSQL**:
+   - Configurado com credenciais fortes
+   - Backup automático configurado
+   - Otimizado para produção
+
+2. **Variáveis de Ambiente Seguras**:
+   - **JWT_SECRET**: Use uma string de 32+ caracteres alfanuméricos
+   - **WHATSAPP_API_TOKEN**: Token válido do Meta for Developers
+   - **WHATSAPP_PHONE_NUMBER_ID**: ID do número WhatsApp Business
+   - **VERIFY_TOKEN**: Token único para validação de webhook
+
+3. **Servidores Web**:
+   - **Frontend**: Servidor estático (nginx, apache, ou CDN)
+   - **Backend**: Node.js com PM2 ou similar para processo daemon
+   - **N8N**: Opcional, para automação avançada
+
+4. **Configurações de Email**:
+   - **SMTP**: Configurado com serviço de email confiável
+   - **Autenticação**: Habilitada para envio de mensagens
+
+### 🔒 Segurança Obrigatória
+
+- **HTTPS**: Certificado SSL configurado
+- **CORS**: Configurado para domínio específico
+- **Rate Limiting**: Limite de requisições por IP
+- **Validação JWT**: Tokens verificados em todas rotas protegidas
+- **Sanitização**: Inputs validados e limpos
+- **Headers**: Security headers configurados
+
+### 📊 Monitoramento e Logs
+
+```bash
+# Monitoramento de Processos
+pm2 monit
+
+# Logs em Tempo Real
+pm2 logs crm-backend
+tail -f /var/log/crm/*.log
+
+# Logs Docker
+docker-compose logs -f backend
+```
+
+### 🔄 Backup e Recuperação
+
+```bash
+# Backup Banco de Dados
+pg_dump crm_db > backup_$(date +%Y%m%d).sql
+
+# Backup N8N
+tar -czf n8n_backup_$(date +%Y%m%d).tar.gz .n8n/
+
+# Restauração
+psql crm_db < backup_YYYYMMDD.sql
+```
+
+## 🌐 Serviços de Deploy
+
+### Opções Recomendadas
+
+#### **Cloud VPS**
+- **DigitalOcean**: $20-50/mês
+- **Linode**: $20-50/mês
+- **AWS EC2**: $25-60/mês
+
+#### **PaaS (Platform as a Service)**
+- **Heroku**: $25-250/mês
+- **Render**: $20-100/mês
+- **Railway**: $20-80/mês
+
+#### **Serviços Gerenciados**
+- **AWS RDS**: $25-200/mês (banco de dados)
+- **Vercel**: $20-400/mês (frontend)
+- **AWS ECS**: $30-150/mês (contêineres)
+
+## 📱 Integração WhatsApp Completa
+
+### Configuração Meta for Developers
+
+1. **Criar Aplicação Business**:
+   - Acesse [developers.facebook.com](https://developers.facebook.com)
+   - Criar App → Business → WhatsApp
+   - Preencher informações básicas
+
+2. **Configurar Webhook**:
+   ```bash
+   # URL de Webhook Produção
+   https://seu-dominio.com/api/whatsapp/webhook
+   
+   # Verificar Token
+   # Token deve coincidir com VERIFY_TOKEN no .env
+   ```
+
+3. **Obter Credenciais**:
+   - **API Token**: Dashboard da App → WhatsApp → API Setup
+   - **Phone Number ID**: WhatsApp → Phone Numbers → Select Number
+
+### Testes e Validação
+
+```bash
+# Testar Webhook Localmente
+ngrok http 3001
+# Configurar URL do ngrok no Meta Developer
+
+# Verificar Status WhatsApp
+curl https://graph.facebook.com/v18.0/PHONE_NUMBER_ID \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+```
+
+## 📈 Performance e Escalabilidade
+
+### Otimizações de Produção
+
+```bash
+# Frontend Build Otimizado
+npm run build
+# Configurar CDN (CloudFront, Cloudflare)
+
+# Backend PM2 Cluster
+pm2 start ecosystem.config.js --env production
+
+# PostgreSQL Otimizado
+# Configurar connection pooling
+# Indexes otimizados
+```
+
+### Cache e CDN
+
+```nginx
+# Nginx Cache Configuration
+location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg)$ {
+  expires 1y;
+  add_header Cache-Control "public, immutable";
+}
+```
+
+## 🔧 Manutenção e Suporte
+
+### Logs e Diagnóstico
+
+```bash
+# Verificar Logs de Erros
+grep -i error /var/log/crm/app.log
+
+# Monitorar Performance
+htop
+iostat -x 1
+
+# Testar Conectividade
+curl -I https://api.seu-dominio.com/health
+```
+
+### Atualizações e Patches
+
+```bash
+# Atualizar Dependências
+npm audit fix
+npm update
+
+# Backup Antes de Atualizar
+docker-compose down
+docker-compose pull
+docker-compose up -d
+```
+
+## 📋 Checklist de Deploy Produção
+
+### ✅ Pré-Deploy
+
+- [ ] Configurar todas variáveis de ambiente
+- [ ] Configurar banco de dados PostgreSQL
+- [ ] Obter credenciais WhatsApp Business
+- [ ] Configurar servidor web (nginx/apache)
+- [ ] Configurar certificado SSL
+- [ ] Configurar backup automático
+- [ ] Testar todos os endpoints
+- [ ] Testar integração WhatsApp
+- [ ] Configurar monitoramento
+- [ ] Documentar procedimentos
+
+### ✅ Pós-Deploy
+
+- [ ] Verificar logs de erro
+- [ ] Testar funcionalidades críticas
+- [ ] Configurar alertas
+- [ ] Monitorar performance
+- [ ] Testar backup e restauração
+
+## 🚀 Deploy Automatizado (Opcional)
+
+### GitHub Actions
+
+```yaml
+# .github/workflows/deploy.yml
+name: Deploy to Production
+on:
+  push:
+    branches: [main]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy to server
+        run: |
+          # Script de deploy
+```
+
+### Docker Compose Produção
+
+```bash
+# Deploy com Docker
+docker-compose -f docker-compose.prod.yml up -d
+
+# Escalonamento
+docker-compose up -d --scale backend=3
+```
+
+## 📞 Suporte e Emergência
+
+### Contatos e Recursos
+
+- **Documentação**: [docs/](./docs/)
+- **Issues**: [GitHub Issues](https://github.com/PedroPaduelo/crm-teste-n8n/issues)
+- **Email de Suporte**: support@seu-dominio.com
+
+### Troubleshooting Comum
+
+```bash
+# Resetar Banco de Dados
+npm run db:reset
+
+# Limpar Cache
+npm run cache:clear
+
+# Reiniciar Serviços
+pm2 restart all
+docker-compose restart
+```
+
+---
+
+**Status: Pronto para Produção** ✅
+
+**Versão: 1.0.0**
+**Última Atualização: 2024**
