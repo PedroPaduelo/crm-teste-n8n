@@ -1,14 +1,23 @@
 # CRM com Integração N8N
 
-Sistema CRM (Customer Relationship Management) desenvolvido com integração com N8N para automação de processos e WhatsApp Business API para comunicação com clientes.
+Sistema CRM (Customer Relationship Management) desenvolvido com integração N8N para automação de processos e WhatsApp Business API para comunicação com clientes.
+
+## 📋 Índice
+
+- [Quick Start](#quick-start)
+- [Configuração](#configuração)
+- [Deploy](#deploy)
+- [Documentação](#documentação)
+- [Contribuindo](#contribuindo)
 
 ## 🏗️ Arquitetura do Projeto
 
 ```
 crm-teste-n8n/
-├── backend/               # API RESTful com Node.js + Express + TypeScript
-├── frontend/              # Aplicação web React + TypeScript
-└── README.md              # Este arquivo
+├── backend/                  # API RESTful com Node.js + Express + TypeScript
+├── frontend/                 # Aplicação web React + TypeScript
+├── docs/                     # Documentação
+└── README.md                 # Este arquivo
 ```
 
 ## 🚀 Quick Start
@@ -20,7 +29,7 @@ crm-teste-n8n/
 - Conta WhatsApp Business (para integração)
 - N8N (opcional, para automação)
 
-### 1. Configuração do Backend
+### 1. Instalação do Backend
 
 ```bash
 # Navegar para pasta do backend
@@ -35,7 +44,7 @@ cp .env.example .env
 # Configurar variáveis de ambiente (veja seção Configuração)
 ```
 
-### 2. Configuração do Frontend
+### 2. Instalação do Frontend
 
 ```bash
 # Navegar para pasta do frontend
@@ -60,42 +69,55 @@ cd frontend
 npm run dev
 ```
 
-Acesse:
-- Frontend: http://localhost:5173
-- Backend API: http://localhost:3001
-- Health Check: http://localhost:3001/health
+### Acesso:
+
+- **Frontend**: http://localhost:5173
+- **Backend API**: http://localhost:3001
+- **Health Check**: http://localhost:3001/health
 
 ## ⚙️ Configuração
 
 ### Variáveis de Ambiente Obrigatórias
 
-No arquivo `backend/.env`, configure as seguintes variáveis:
+Configure as seguintes variáveis no arquivo `backend/.env`:
 
 ```bash
-# Database
+# Banco de Dados
 DATABASE_URL=postgresql://usuario:senha@localhost:5432/crm_db
 
 # JWT
-JWT_SECRET=seu-segredo-jwt-muito-seguro
+JWT_SECRET=seu-segredo-jwt-muito-seguro-mudar-em-producao
 
 # WhatsApp Business API
 WHATSAPP_API_TOKEN=seu-token-api-whatsapp
 WHATSAPP_PHONE_NUMBER_ID=seu-id-numero-whatsapp
 VERIFY_TOKEN=seu-token-verificacao-webhook
+
+# Frontend URL
+FRONTEND_URL=http://localhost:3000
+
+# N8N
+N8N_WEBHOOK_URL=http://localhost:5678/webhook
+N8N_API_KEY=sua-chave-api-n8n
+
+# Email
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=seu-email@gmail.com
+SMTP_PASS=sua-senha-app
 ```
 
 ### Configuração do WhatsApp Business
 
 1. **Criar conta Meta Developer**: Acesse [developers.facebook.com](https://developers.facebook.com)
-2. **Criar aplicação WhatsApp**:
-   - Business → WhatsApp
-   - Configure webhook e número de telefone
+2. **Criar aplicação WhatsApp**: 
+   - Vá para "Meus Apps" ➜ "Criar App" ➜ "Business" ➜ "WhatsApp"
 3. **Obter credenciais**:
    - API Token (painel da aplicação)
    - Phone Number ID (painel do WhatsApp)
 4. **Configurar webhook**:
    - URL: `https://seu-dominio.com/api/whatsapp/webhook`
-   - Verify Token: configure no Meta e no `.env`
+   - Verify Token: configure no Meta e no .env
 
 ### Banco de Dados
 
@@ -114,14 +136,14 @@ GRANT ALL PRIVILEGES ON DATABASE crm_db TO crm_user;
 
 ```bash
 # Backend
-npm run dev              # Servidor desenvolvimento
-npm run build            # Compilar TypeScript
-npm start                # Servidor produção
+npm run dev          # Servidor desenvolvimento
+npm run build        # Compilar TypeScript
+npm start            # Servidor produção
 
 # Frontend
-npm run dev              # Servidor desenvolvimento
-npm run build            # Build para produção
-npm run preview          # Preview do build
+npm run dev          # Servidor desenvolvimento
+npm run build        # Build para produção
+npm run preview      # Preview do build
 ```
 
 ### ngrok para Webhooks
@@ -136,7 +158,7 @@ ngrok http 3001
 # Ex: https://abc123.ngrok.io/api/whatsapp/webhook
 ```
 
-## 🚀 Deploy em Produção
+## 🚀 Deploy
 
 ### Backend
 
@@ -157,11 +179,11 @@ pm2 start dist/index.js --name crm-backend
 # Build para produção
 npm run build
 
-# Deploy da pasta dist/
-# Configure servidor web para servir arquivos estáticos
+# Deploy da pasta dist
+# Configurar servidor web para servir arquivos estáticos
 ```
 
-### Opções de Hospedagem
+### 🌍 Opções de Hospedagem
 
 #### Backend
 - **VPS**: DigitalOcean, Linode, AWS EC2
@@ -173,7 +195,41 @@ npm run build
 - **CDN**: AWS S3 + CloudFront
 - **VPS**: Nginx + Apache
 
-## 📱 Integração com N8N
+## 🔧 Configuração de Produção
+
+### Variáveis de Ambiente Produção
+
+⚠️ **IMPORTANTE**: Nunca commitar o arquivo `.env` no versionamento!
+
+- Use serviços de gerenciamento de segredos (AWS Secrets Manager, HashiCorp Vault)
+- Ou configure variáveis no servidor
+- Ou use arquivos de configuração específicos do ambiente
+
+### Segurança
+
+- Configure CORS para domínios específicos
+- Use HTTPS em produção
+- Valide tokens JWT
+- Implemente rate limiting
+- Sanitize inputs de usuários
+- Configure headers de segurança
+
+### Monitoramento e Logs
+
+Em produção, configure monitoramento e logs:
+
+```bash
+# Logs PM2
+pm2 logs crm-backend
+
+# Logs específicos
+tail -f /var/log/crm/app.log
+
+# Monitoramento com Docker
+docker logs -f crm_backend
+```
+
+## 🔄 Integração N8N
 
 O sistema integra com N8N para automação:
 
@@ -185,36 +241,36 @@ O sistema integra com N8N para automação:
    - Envio de mensagens WhatsApp
    - Disparos de emails
 
-## 🔧 Funcionalidades
+## 🏆 Funcionalidades
 
 ### CRM Core
-- ✅ Gestão de clientes
-- ✅ Controle de leads
-- ✅ Histórico de interações
-- ✅ Pipeline de vendas
+- 🏢 Gestão de clientes
+- 📈 Controle de leads
+- 📅 Histórico de interações
+- 💼 Pipeline de vendas
 
 ### Comunicação
-- ✅ WhatsApp Business API
-- ✅ Envio de emails
-- ✅ Notificações automáticas
+- 📱 WhatsApp Business API
+- 📧 Envio de emails
+- 🔔 Notificações automáticas
 
 ### Automação
-- ✅ Integração N8N
-- ✅ Webhooks personalizados
-- ✅ Fluxos de trabalho
+- 🔄 Integração N8N
+- 🪝 Webhooks personalizados
+- 📊 Fluxos de trabalho
 
-## 📚 Documentação
+## 📝 Documentação
 
 - [Backend Documentation](./backend/README.md)
 - [Frontend Documentation](./frontend/README.md)
 - [API Reference](./docs/api.md) *(em construção)*
-- [Deploy Guide](./docs/deploy.md) *(em construção)*
+- [Deploy Guide](./docs/DEPLOY.md)
 
 ## 🤝 Contribuindo
 
 1. Fork o projeto
 2. Crie branch para feature (`git checkout -b feature/nova-funcionalidade`)
-3. Commit changes (`git commit -am 'Add nova funcionalidade'`)
+3. Commit mudanças (`git commit -am 'Add nova funcionalidade'`)
 4. Push para branch (`git push origin feature/nova-funcionalidade`)
 5. Abra Pull Request
 
@@ -230,16 +286,37 @@ Para suporte:
 - Email: support@seu-dominio.com
 - Documentação: [Wiki do Projeto](https://github.com/PedroPaduelo/crm-teste-n8n/wiki)
 
-## 🔄 Status do Projeto
+## 📊 Status do Projeto
 
 - [x] Backend API básica
 - [x] Configuração WhatsApp
 - [x] Documentação inicial
-- [ ] Frontend completo
-- [ ] Integração N8N avançada
-- [ ] Testes automatizados
-- [ ] CI/CD pipeline
+- [x] Frontend completo
+- [x] Integração N8N avançada
+- [x] Testes automatizados
+- [x] CI/CD pipeline
 
 ---
 
 **Desenvolvido com ❤️ usando Node.js, React e N8N**
+
+### 🚀 Deploy Rápido
+
+Para deploy rápido em produção:
+
+```bash
+# Clonar repositório
+git clone https://github.com/PedroPaduelo/crm-teste-n8n.git
+cd crm-teste-n8n
+
+# Configurar ambiente
+cp backend/.env.example backend/.env
+cp frontend/.env.example frontend/.env
+
+# Editar arquivos .env com suas credenciais
+
+# Deploy com Docker
+docker-compose up -d
+
+# Ou deploy manual seguindo o guia docs/DEPLOY.md
+```
