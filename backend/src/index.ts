@@ -19,5 +19,5 @@ app.get('/health', (req: Request, res: Response) => {
 
 app.listen(PORT, () => {
   console.log(`🚀 Servidor backend rodando na porta ${PORT}`);
-  console.log(`📋 Health check disponível em: http://localhost:${PORT}/health`);
+  console.log(`📊 Health check disponível em: http://localhost:${PORT}/health`);
 });
